@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ycao.mysite.dao.AttAchDao" >
+    <sql id="BASE_TABLE">
+        t_attach
+    </sql>
+    <sql id="BASE_COLUMN">
+        fname,ftype,fkey,authorid,created,ts
+    </sql>
+    <sql id="using">
+        and ifnull(dr,0)=0
+    </sql>
+    <update id="doUploadFile" parameterType="com.ycao.mysite.model.AttAchDomain">
+        insert into <include refid="BASE_TABLE"/>(<include refid="BASE_COLUMN"/>)
+        values(#{fname},#{ftype},#{fkey},
+                <choose>
+                    <when test="authorid!=null">
+                        #{authorid},
+                    </when>
+                    <otherwise>
+                        0,
+                    </otherwise>
+                </choose>
+        now(),now())
+    </update>
+
+    <select id="getAllFilesUpload" resultType="com.ycao.mysite.model.AttAchDomain">
+        <trim suffix="" suffixOverrides=",">
+            select <include refid="BASE_COLUMN"/>
+        </trim>
+        from <include refid="BASE_TABLE"/>
+        <where>
+          and authorid = #{authorid}
+          <include refid="using"/>
+        </where>
+        ORDER BY ts DESC
+    </select>
+    <update id="deleteOneFile">
+        update
+        <include refid="BASE_TABLE"/>
+        <set>
+            dr = 1
+        </set>
+        <where>
+            fname = #{fname}
+            <include refid="using"/>
+        </where>
+    </update>
+</mapper>
