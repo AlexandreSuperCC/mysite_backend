@@ -42,6 +42,7 @@
     <select id="getMdCatIdFromName" resultType="String">
         select cid from <include refid="BASE_TABLE_CAT"/> where cname = #{cname}
         <include refid="using"/>
+        limit 1
     </select>
     <update id="addMarkdown" parameterType="com.ycao.mysite.model.MarkdownFileDomain">
         insert into <include refid="BASE_TABLE_MD"/>(<include refid="BASE_COLUMN_MD"/>)
@@ -49,7 +50,7 @@
     </update>
 
     <select id="verifyMarkdown" resultType="com.ycao.mysite.model.MarkdownFileDomain">
-        select * from <include refid="BASE_TABLE_MD"/> where mid = #{mid}
+        select * from <include refid="BASE_TABLE_MD"/> where mid = #{mid} and author_id = #{userId}
 <!--        <include refid="using"/>-->
     </select>
 
@@ -83,11 +84,7 @@
         from <include refid="BASE_TABLE_MD"/> a inner join <include refid="BASE_TABLE_CAT"/> b
             on a.pk_category = b.cid
         <where>
-            a.author_id = #{authorId}
-            and
-            b.author_id = #{authorId}
-            and
-            ifnull(a.dr,0)=0 and ifnull(b.dr,0)=0
+            ifnull(a.dr,0)=0
         </where>
         order by a.ts desc
     </select>

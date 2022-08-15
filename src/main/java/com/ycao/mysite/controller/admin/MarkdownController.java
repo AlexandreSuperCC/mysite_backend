@@ -61,8 +61,10 @@ public class MarkdownController {
                 return APIResponse.fail("Save Markdown file fails");
             }
             return APIResponse.success();
-        }catch (BusinessException exception){
-            return APIResponse.fail(exception.getErrorCode());
+        }catch (BusinessException businessException){
+            return APIResponse.fail(businessException.getErrorCode());
+        }catch (Exception e){
+            return APIResponse.fail(e.getMessage());
         }
     }
 

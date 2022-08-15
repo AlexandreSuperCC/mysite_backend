@@ -11,11 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class MysiteApplicationTests {
 
-    @Test
-    void contextLoads() {
-        RedisUtils.set("ycao","0423");
-        System.out.println(RedisUtils.get("ycao"));
-    }
+//    @Test
+//    void contextLoads() {
+//        RedisUtils.set("ycao","0423");
+//        System.out.println(RedisUtils.get("ycao"));
+//    }
 
     //使用@Value的类，在spring中，不能直接通过new 操作符来使用，而是应该通过spring的注解 @Autowired 来使用
     @Autowired

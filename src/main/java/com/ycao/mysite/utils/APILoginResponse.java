@@ -8,6 +8,7 @@ public class APILoginResponse {
     private String msg;
     private String token;
     private String userId;
+    private Integer userRole;
 
     private static final String CODE_SUCCESS = "success";
     private static final String CODE_FAIL = "fail";
@@ -16,11 +17,12 @@ public class APILoginResponse {
         this.code = code;
         this.msg = msg;
     }
-    public APILoginResponse(String code,String token,String userId) {
+    public APILoginResponse(String code,String token,String userId,Integer userRole) {
         this.code = code;
         this.msg = msg;
         this.token = token;
         this.userId = userId;
+        this.userRole = userRole;
     }
     public static APILoginResponse failLogin(String msg) {
         return new APILoginResponse(CODE_FAIL, msg);
@@ -31,7 +33,7 @@ public class APILoginResponse {
      * @param
      * @return
      */
-    public static APILoginResponse successLogin(String token,String userId){
-        return new APILoginResponse(CODE_SUCCESS,token,userId);
+    public static APILoginResponse successLogin(String token,String userId,Integer userRole){
+        return new APILoginResponse(CODE_SUCCESS,token,userId,userRole);
     }
 }

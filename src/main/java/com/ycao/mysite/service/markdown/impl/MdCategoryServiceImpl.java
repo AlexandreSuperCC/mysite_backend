@@ -27,7 +27,7 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
     Map map;
 
     @Override
-    @CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
+//    @CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
     public String doMarkdownService(Map map) throws BusinessException{
         if(map==null||map.size()==0){
             return "fail";
@@ -90,7 +90,8 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String content = (String) map.get("content");
         String htmlText = (String) map.get("htmlText");
         String nameCategory = (String) map.get("fileCategory");
-        String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory);
+        String authorId = (String) map.get("userId");
+        String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory,authorId);
 
         mdCatDao.modifyMarkdown(new MarkdownFileDomain(mid,mname,rate,content,cidCategory,htmlText));
     }
@@ -122,7 +123,7 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String nameCategory = (String) map.get("fileCategory");
         String htmlText = (String) map.get("htmlText");
 
-        String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory);
+        String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory,authorId);
         try{
             mdCatDao.addMarkdown(new MarkdownFileDomain(Integer.parseInt(mid),mname,Integer.parseInt(authorId),rate,content,cidCategory,htmlText));
         }catch (Exception e){

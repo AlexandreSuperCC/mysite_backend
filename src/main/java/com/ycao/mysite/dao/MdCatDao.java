@@ -3,6 +3,7 @@ package com.ycao.mysite.dao;
 import com.ycao.mysite.model.FileCategoryDomain;
 import com.ycao.mysite.model.MarkdownFileDomain;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,20 +16,20 @@ public interface MdCatDao {
      * @param
      * @return
      */
-    public List<MarkdownFileDomain> getAllFilesWithCatName(Integer authorId);
+    public List<MarkdownFileDomain> getAllFilesWithCatName(@Param("authorId") Integer authorId);
     /**
      * getting all category
      * @param
      * @return
      */
-    public List<FileCategoryDomain> getAllCategory(Integer userId);
+    public List<FileCategoryDomain> getAllCategory(@Param("userId") Integer userId);
 
     /**
      * verify if a markdown file is existed or new
      * @param
      * @return
      */
-    public List<MarkdownFileDomain> verifyMarkdown(String mid);
+    public List<MarkdownFileDomain> verifyMarkdown(@Param("mid") String mid);
 
     /**
      * modify an existing markdown file
@@ -41,7 +42,7 @@ public interface MdCatDao {
      * @param
      * @return
      */
-    public List<FileCategoryDomain> verifyCategory(String userId,String fileCategory);
+    public List<FileCategoryDomain> verifyCategory(@Param("userId") String userId, @Param("fileCategory") String fileCategory);
     /**
      * create new category for the markdown
      * @param
@@ -54,7 +55,7 @@ public interface MdCatDao {
      * @param
      * @return
      */
-    public String getMdCatIdFromName(String cname);
+    public String getMdCatIdFromName(@Param("cname") String cname,@Param("userId") String userId);
     /**
      * create new markdown
      * @param
@@ -66,12 +67,12 @@ public interface MdCatDao {
      * @param
      * @return
      */
-    public void deleteOneFile(String mid);
+    public void deleteOneFile(@Param("mid") String mid);
     /**
      * delete one category and all the files in this category
      * @param
      * @return
      */
-    public void deleteCategoryFiles(String cname,Integer userId);
+    public void deleteCategoryFiles(@Param("cname") String cname, @Param("userId") Integer userId);
 
 }

@@ -25,7 +25,7 @@ public class AttAchServiceImpl implements IAttAchService {
     AttAchDao attAchDao;
 
     @Override
-    @CacheEvict(cacheNames = "attachCaches",allEntries = true,beforeInvocation = true)
+    //@CacheEvict(cacheNames = "attachCaches",allEntries = true,beforeInvocation = true)
     public void addAttach(AttAchDomain attAchDomain) {
         if(attAchDomain==null)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
@@ -33,7 +33,7 @@ public class AttAchServiceImpl implements IAttAchService {
         LOGGER.error("Upload ["+uploadRes+"] file/files finished");
     }
 
-    @Cacheable(cacheNames = "attachCaches",key = "#root.methodName+':['+#authorid+']'")
+    //@Cacheable(cacheNames = "attachCaches",key = "#root.methodName+':['+#authorid+']'")
     @Override
     public AttAchDomain[] getAttach(String authorid) {
         if(authorid==null||"".equals(authorid)){
@@ -43,7 +43,7 @@ public class AttAchServiceImpl implements IAttAchService {
         return allFiles;
     }
 
-    @CacheEvict(cacheNames = "attachCaches",allEntries = true,beforeInvocation = true)
+    //@CacheEvict(cacheNames = "attachCaches",allEntries = true,beforeInvocation = true)
     @Override
     public int deleteOneFile(String fname) {
         return attAchDao.deleteOneFile(fname);

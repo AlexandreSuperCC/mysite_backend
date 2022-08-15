@@ -73,9 +73,12 @@ public class AuthController {
             token = JwtUtil.sign(userInfo.getUsername(),userInfo.getUid().toString());
             if(token!=null){
                 if(userInfo.getUid()==null){
-                    return APILoginResponse.successLogin(token,"");
+                    return APILoginResponse.successLogin(token,"",-1);
                 }
-                return APILoginResponse.successLogin(token,String.valueOf(userInfo.getUid()));
+                return APILoginResponse.successLogin(token,
+                        String.valueOf(userInfo.getUid()),
+                        userInfo.getRole()
+                );
             }
         }catch (Exception e){
             String msg = "login fails";

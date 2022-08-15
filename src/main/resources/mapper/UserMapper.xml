@@ -5,7 +5,7 @@
        t_users
    </sql>
     <sql id="BASE_COLUMN">
-        uid,username,password,email
+        uid,username,password,email,role
     </sql>
 
     <select id="getUserInfoByCond" resultType="com.ycao.mysite.model.UserDomain">

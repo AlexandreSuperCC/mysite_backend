@@ -15,7 +15,7 @@ import java.util.List;
 public class MarkdownServiceImpl implements IMarkdownService {
     @Autowired
     MdCatDao mdCatDao;
-    @Cacheable(cacheNames = "markdownCaches",key = "#root.methodName + ':[' + #userId + ']'")
+    //@Cacheable(cacheNames = "markdownCaches",key = "#root.methodName + ':[' + #userId + ']'")
     @Override
     public List<MarkdownFileDomain> getAllMarkdown(String userId) {
         if(userId==null)
@@ -23,14 +23,14 @@ public class MarkdownServiceImpl implements IMarkdownService {
         return mdCatDao.getAllFilesWithCatName(Integer.parseInt(userId));
     }
 
-    @CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
+    //@CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
     @Override
     public void deleteOneFile(String mid) {
         mdCatDao.deleteOneFile(mid);
     }
 
     @Override
-    @CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
+    //@CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
     public void deleteCategoryFiles(String cname,String userId) {
         mdCatDao.deleteCategoryFiles(cname,Integer.parseInt(userId));
     }
