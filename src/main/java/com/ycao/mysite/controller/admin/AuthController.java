@@ -58,12 +58,13 @@ public class AuthController {
 //            String remember_me
     ){
         String ip = IPKit.getIpAddrByRequest(request);//gei ip and solve the bug of filtering the cache when logging
+        String realIp = IPKit.getIpAddr(request);
         String token = null;
         try{
             String username=loginUser.getUsername();
             String password=loginUser.getPassword();
             LOGGER.info("user: ["+username+"] pwd: ["+password+"] arrives");
-            UserDomain userInfo = userService.login(username,password);
+            UserDomain userInfo = userService.login(username,password,realIp==""?ip:realIp);
             //no exception so succeed=>
             // depreciated, replace with token, but used again to save the user
             //delete by ycao 20222028 session消失bug 域名问题……调试的时候一个是127.0.0.1一个是localhost

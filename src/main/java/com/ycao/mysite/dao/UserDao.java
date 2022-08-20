@@ -4,6 +4,8 @@ import com.ycao.mysite.model.UserDomain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Map;
+
 /**
  *
  * Created by ycao on 10/24
@@ -23,4 +25,6 @@ public interface UserDao {
      * @return
      */
     UserDomain getUserInfoById(@Param("uid") Integer uid);
+
+    int insertLoginInfo(Map map);
 }

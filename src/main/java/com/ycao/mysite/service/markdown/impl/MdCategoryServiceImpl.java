@@ -91,6 +91,10 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String htmlText = (String) map.get("htmlText");
         String nameCategory = (String) map.get("fileCategory");
         String authorId = (String) map.get("userId");
+
+        Boolean ifNewCat = checkNewCat(map);
+        if (ifNewCat) doCreateCat(map);//add action:create new category
+
         String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory,authorId);
 
         mdCatDao.modifyMarkdown(new MarkdownFileDomain(mid,mname,rate,content,cidCategory,htmlText));
@@ -150,7 +154,7 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String userId = (String) map.get("userId");
         String fileCategory = (String) map.get("fileCategory");
         mdCatDao.addMdCategory(new FileCategoryDomain(fileCategory,Integer.parseInt(userId)));
-        LOGGER.error("Upload markdown finished");
+        LOGGER.info("Upload markdown finished");
     }
 
     public List<FileCategoryDomain> getAllCategory(String userId) throws BusinessException{

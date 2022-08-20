@@ -50,7 +50,7 @@
     </update>
 
     <select id="verifyMarkdown" resultType="com.ycao.mysite.model.MarkdownFileDomain">
-        select * from <include refid="BASE_TABLE_MD"/> where mid = #{mid} and author_id = #{userId}
+        select * from <include refid="BASE_TABLE_MD"/> where mid = #{mid}
 <!--        <include refid="using"/>-->
     </select>
 

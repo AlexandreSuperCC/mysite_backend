@@ -30,4 +30,8 @@
         where
         uid = #{uid, jdbcType=INTEGER}
     </select>
+    <insert id="insertLoginInfo"  parameterType="java.util.Map">
+      insert into t_login_log(user_id, login_ip, login_time)
+      values(#{uid},#{ip},now()) ;
+    </insert>
 </mapper>

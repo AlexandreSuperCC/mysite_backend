@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
 
-    UserDomain login(String username,String password);
+    UserDomain login(String username,String password,String ip);
 
     /**
      * get user's info according to his primary key
