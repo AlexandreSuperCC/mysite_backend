@@ -23,14 +23,13 @@
     <select id="getAllCategory" resultType="com.ycao.mysite.model.FileCategoryDomain">
         select *
         from <include refid="BASE_TABLE_CAT"/>
-        where author_id = #{userId}
-        <include refid="using"/>
+        where ifnull(dr,0)=0
     </select>
 
     <select id="verifyCategory" resultType="com.ycao.mysite.model.FileCategoryDomain">
         select *
         from <include refid="BASE_TABLE_CAT"/>
-        where author_id = #{userId} and cname = #{fileCategory}
+        where cname = #{fileCategory}
         <include refid="using"/>
     </select>
 
@@ -109,7 +108,7 @@
         </set>
         <where>
             cname = #{cname, jdbcType=VARCHAR}
-            and author_id = #{userId, jdbcType=INTEGER}
+--             and author_id = #{userId, jdbcType=INTEGER}
             <include refid="using"/>
         </where>
     </update>
