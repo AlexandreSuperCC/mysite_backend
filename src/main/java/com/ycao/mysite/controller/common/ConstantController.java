@@ -1,4 +1,4 @@
-package com.ycao.mysite.controller.introduction;
+package com.ycao.mysite.controller.common;
 
 import com.ycao.mysite.controller.BaseController;
 import com.ycao.mysite.exception.BusinessException;
@@ -15,8 +15,7 @@ import java.util.Map;
 
 @Api("constant related interface")
 @Controller
-@RequestMapping(value = "/aboutMe")
-public class AboutMeController extends BaseController {
+public class ConstantController extends BaseController {
     @Autowired
     IConstantService iConstantService;
 

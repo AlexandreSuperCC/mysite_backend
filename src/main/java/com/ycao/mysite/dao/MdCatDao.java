@@ -16,7 +16,7 @@ public interface MdCatDao {
      * @param
      * @return
      */
-    public List<MarkdownFileDomain> getAllFilesWithCatName(@Param("authorId") Integer authorId);
+    public List<MarkdownFileDomain> getAllFilesWithCatName();
     /**
      * getting all category
      * @param

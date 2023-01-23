@@ -34,6 +34,9 @@ public class BaseInterceptor implements HandlerInterceptor {
         // 如果不是映射到方法直接通过,可以访问资源.
         // if the action is uploading file, it will not come through the front-end interceptors!!!, so let it pass
         if(url.startsWith("/login")
+                ||"/baseData".equals(url)
+                ||"/logout".equals(url)
+                ||url.startsWith("/index")
                 ||url.contains("/uploadFile")
                 ||(!(handler instanceof HandlerMethod)
                 //不拦截swagger

@@ -58,7 +58,7 @@ public class APIResponse <T> {
     }
 
     /**
-     * used in home to get article
+     * used in index to get article
      * @param
      * @return
      */

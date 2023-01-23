@@ -19,7 +19,7 @@
         from <include refid="BASE_TABLE"/>
         <where>
             and creator_id = #{userId}
-            and domain = #{domain, jdbcType=VARCHAR}
+            and UPPER(domain) = UPPER(#{domain, jdbcType=VARCHAR})
             <include refid="using"/>
         </where>
         ORDER BY ts DESC

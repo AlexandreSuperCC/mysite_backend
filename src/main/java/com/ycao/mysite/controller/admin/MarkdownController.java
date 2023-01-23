@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.ycao.mysite.constant.ErrorConstant;
 import com.ycao.mysite.exception.BusinessException;
 import com.ycao.mysite.model.FileCategoryDomain;
+import com.ycao.mysite.service.markdown.IMarkdownService;
 import com.ycao.mysite.service.markdown.IMdCategoryService;
 import com.ycao.mysite.utils.APIResponse;
 import com.ycao.mysite.utils.MyUtils;
@@ -31,6 +32,8 @@ public class MarkdownController {
 
     @Autowired
     IMdCategoryService iMdCategoryService;
+    @Autowired
+    private IMarkdownService iMarkdownService;
 
     @ResponseBody
     @GetMapping(value = "getAllCategory")
@@ -68,4 +71,25 @@ public class MarkdownController {
         }
     }
 
+    @ResponseBody
+    @GetMapping(value = "deleteOneFile")
+    public APIResponse deleteOneArticle(HttpServletRequest request,
+                                        @RequestParam(value = "mid",required = false)
+                                                String mid
+    ){
+        iMarkdownService.deleteOneFile(mid);
+        return APIResponse.success();
+    }
+
+    @ResponseBody
+    @GetMapping(value = "deleteCatFiles")
+    public APIResponse deleteCategoryAndFiles(HttpServletRequest request,
+                                              @RequestParam(value = "cname",required = false)
+                                                      String cname,
+                                              @RequestParam(value = "userId",required = false)
+                                                      String userId
+    ){
+        iMarkdownService.deleteCategoryFiles(cname,userId);
+        return APIResponse.success();
+    }
 }
