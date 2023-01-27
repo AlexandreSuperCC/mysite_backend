@@ -34,4 +34,9 @@
       insert into t_login_log(user_id, login_ip, login_time)
       values(#{uid},#{ip},now()) ;
     </insert>
+    <select id="getLoginLog" resultType="com.ycao.mysite.model.LoginLogDomain">
+        select *
+        from t_login_log
+        ORDER BY login_time DESC;
+    </select>
 </mapper>

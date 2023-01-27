@@ -8,6 +8,7 @@ import com.ycao.mysite.utils.security.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -25,6 +26,9 @@ public class BaseInterceptor implements HandlerInterceptor {
     @Autowired
     JwtUtil jwtUtil;
 
+    @Value("${server.servlet.context-path}")
+    public String PREFIX_URL;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURI();
@@ -33,10 +37,10 @@ public class BaseInterceptor implements HandlerInterceptor {
 
         // 如果不是映射到方法直接通过,可以访问资源.
         // if the action is uploading file, it will not come through the front-end interceptors!!!, so let it pass
-        if(url.startsWith("/login")
-                ||"/baseData".equals(url)
-                ||"/logout".equals(url)
-                ||url.startsWith("/index")
+        if(url.startsWith(PREFIX_URL+"/login")
+                ||url.startsWith(PREFIX_URL+"/index")
+                ||(PREFIX_URL+"/baseData").equals(url)
+                ||(PREFIX_URL+"/logout").equals(url)
                 ||url.contains("/uploadFile")
                 ||(!(handler instanceof HandlerMethod)
                 //不拦截swagger

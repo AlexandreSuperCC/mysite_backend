@@ -1,7 +1,5 @@
 package com.ycao.mysite.controller.admin;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.ycao.mysite.api.QiniuCloudService;
 import com.ycao.mysite.constant.ErrorConstant;
 import com.ycao.mysite.constant.OtherConstant;
