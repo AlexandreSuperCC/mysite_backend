@@ -6,8 +6,6 @@ package com.ycao.mysite.controller.admin;
  * where we get connected with vue
  * Created by ycao on 8/24
  */
-import com.ycao.mysite.constant.WebConst;
-import com.ycao.mysite.controller.BaseController;
 import com.ycao.mysite.model.LoginUser;
 import com.ycao.mysite.exception.BusinessException;
 import com.ycao.mysite.model.UserDomain;
@@ -15,6 +13,7 @@ import com.ycao.mysite.service.user.UserService;
 import com.ycao.mysite.utils.APILoginResponse;
 import com.ycao.mysite.utils.APIResponse;
 import com.ycao.mysite.utils.IPKit;
+import com.ycao.mysite.utils.MapCache;
 import com.ycao.mysite.utils.security.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -34,10 +33,14 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
     private static final Logger LOGGER = LogManager.getLogger(AuthController.class);
 
+    /**
+     * used for stock cache, for example, how many times the wrong login attempt before blocking the ip
+     */
+    protected MapCache cache = MapCache.single();
+
+
     @Autowired
     private UserService userService;
-    @Autowired
-    private JwtUtil jwtUtil;
 
     @ApiOperation("login")
     @ApiImplicitParam(name = "form", value = "user login form", required = true, dataType = "LoginUser")
@@ -59,12 +62,23 @@ public class AuthController {
     ){
         String ip = IPKit.getIpAddrByRequest(request);//gei ip and solve the bug of filtering the cache when logging
         String realIp = IPKit.getIpAddr(request);
-        String token = null;
+        String token;
+        String finalIp = realIp==""?ip:realIp;
+
+        Integer error_count = cache.hget("login_error_count",finalIp);
+        error_count = null == error_count ? 1 : error_count + 1;
+
+        if (error_count > 3) {// debug proposal, should be restored
+            String msg = "You entered the wrong password more than 3 times, please try again after 10 minutes";
+            return APILoginResponse.failLogin(msg);
+        }
+
         try{
             String username=loginUser.getUsername();
             String password=loginUser.getPassword();
             LOGGER.info("user: ["+username+"] pwd: ["+password+"] arrives");
-            UserDomain userInfo = userService.login(username,password,realIp==""?ip:realIp);
+
+            UserDomain userInfo = userService.login(username,password,finalIp);
             //no exception so succeed=>
             // depreciated, replace with token, but used again to save the user
             //delete by ycao 20222028 session消失bug 域名问题……调试的时候一个是127.0.0.1一个是localhost
@@ -83,14 +97,18 @@ public class AuthController {
             }
         }catch (Exception e){
             String msg = "login fails";
+
             if(e instanceof BusinessException){
+                cache.hset("login_error_count", finalIp,error_count, 10 * 60); // add ip filter
+
                 String errMes = e.getMessage()!=null?e.getMessage():((BusinessException) e).getErrorCode();
-                LOGGER.error(ip+" : "+errMes);
+                LOGGER.error(finalIp+" : "+errMes);
                 msg = ((BusinessException) e).getErrorCode();
             }else{
                 LOGGER.error(msg,e);
             }
             return APILoginResponse.failLogin(msg);
+
         }
         return APILoginResponse.failLogin("make token error");
     }
