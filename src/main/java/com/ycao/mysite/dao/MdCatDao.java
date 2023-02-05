@@ -16,7 +16,7 @@ public interface MdCatDao {
      * @param
      * @return
      */
-    public List<MarkdownFileDomain> getAllFilesWithCatName(@Param("authorId") Integer authorId);
+    public List<MarkdownFileDomain> getAllFilesWithCatName();
     /**
      * getting all category
      * @param
@@ -67,7 +67,7 @@ public interface MdCatDao {
      * @param
      * @return
      */
-    public void deleteOneFile(@Param("mid") String mid);
+    public void deleteOneMarkdown(@Param("mid") String mid);
     /**
      * delete one category and all the files in this category
      * @param

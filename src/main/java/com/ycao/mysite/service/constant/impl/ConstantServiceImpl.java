@@ -21,6 +21,6 @@ public class ConstantServiceImpl implements IConstantService {
         }
         if(domain==null)
             domain = "";
-        return constantDao.getConstant(userId,domain);
+        return constantDao.getMyConstant(userId,domain);
     }
 }

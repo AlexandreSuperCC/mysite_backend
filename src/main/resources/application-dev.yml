@@ -11,10 +11,10 @@ spring:
       filters: stat
       driver-class-name: com.mysql.cj.jdbc.Driver
       #基本属性
-      url: jdbc:mysql://139.224.199.41:3306/ycao_site?useSSL=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://127.0.0.1:3306/ycao_site?useSSL=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       #密码一定要加单引号！！！！！！！！！
-      password: ''
+      password: '0423'
       #配置初始化大小/最小/最大
       initial-size: 1
       min-idle: 1
@@ -59,8 +59,8 @@ jwt:
   limitTime: 30
 
 qiniu:
-  accesskey: "nldp85WFnrjxP-UWmvcgC1efYqQ_xT09XzA53jXl"
-  serectkey: ""
+  accesskey: "VZ7XtecWHInG8YRg22gLSuhbWC-o9OzXtUVuMDhz"
+  serectkey: "fOtqr0wmKGhQrbCKBFZCkgUIZGj8otHbxorPqdDr"
   bucket: "north-us-ycao"
   cdn:
     url: "www.cklovery.site/"

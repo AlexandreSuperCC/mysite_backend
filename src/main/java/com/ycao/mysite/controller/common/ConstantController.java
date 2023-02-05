@@ -1,4 +1,4 @@
-package com.ycao.mysite.controller.introduction;
+package com.ycao.mysite.controller.common;
 
 import com.ycao.mysite.controller.BaseController;
 import com.ycao.mysite.exception.BusinessException;
@@ -7,16 +7,13 @@ import com.ycao.mysite.utils.APIResponse;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
 @Api("constant related interface")
 @Controller
-@RequestMapping(value = "/aboutMe")
-public class AboutMeController extends BaseController {
+public class ConstantController extends BaseController {
     @Autowired
     IConstantService iConstantService;
 

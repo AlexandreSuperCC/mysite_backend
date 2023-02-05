@@ -13,5 +13,5 @@ public interface ConstantDao {
      * @param
      * @return
      */
-    public List<Map> getConstant(@Param("userId") String userId, @Param("domain") String domain);
+    public List<Map> getMyConstant(@Param("userId") String userId, @Param("domain") String domain);
 }

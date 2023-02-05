@@ -17,16 +17,14 @@ public class MarkdownServiceImpl implements IMarkdownService {
     MdCatDao mdCatDao;
     //@Cacheable(cacheNames = "markdownCaches",key = "#root.methodName + ':[' + #userId + ']'")
     @Override
-    public List<MarkdownFileDomain> getAllMarkdown(String userId) {
-        if(userId==null)
-            throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
-        return mdCatDao.getAllFilesWithCatName(Integer.parseInt(userId));
+    public List<MarkdownFileDomain> getAllMarkdown() {
+        return mdCatDao.getAllFilesWithCatName();
     }
 
     //@CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
     @Override
-    public void deleteOneFile(String mid) {
-        mdCatDao.deleteOneFile(mid);
+    public void deleteOneMarkdown(String mid) {
+        mdCatDao.deleteOneMarkdown(mid);
     }
 
     @Override

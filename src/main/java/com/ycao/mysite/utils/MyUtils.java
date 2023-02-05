@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -117,11 +118,33 @@ public class MyUtils {
                 extName = StringUtils.trimToNull(fileName.substring(index+1));
             }
             String realFileName = fileName.substring(0,index);
-            return new String[]{prefix+"/"+realFileName+UUID.randomUUID()+"."+(extName==null?"":(extName))
+            return new String[]{prefix+"/"+getRandomID()+"-"+realFileName+"."+(extName==null?"":(extName))
                     ,extName};
         }
 
 
+    }
+
+    /**
+     * @DESC Generate random ID: current hour, minute, second + two random numbers
+     * @param
+     * @return
+     * @data 16/05/2022 11:44
+     * @author yuan.cao@utbm.fr
+     **/
+    public static Integer getRandomID() {
+
+        SimpleDateFormat simpleDateFormat;
+
+        simpleDateFormat = new SimpleDateFormat("HHmmss");
+
+        Date date = new Date();
+
+        String str = simpleDateFormat.format(date);
+
+        int rannum = (int)(1+Math.random() * 99);// 获取随机数1-99
+
+        return Integer.valueOf(str + rannum);// 当前时间
     }
 
     /**

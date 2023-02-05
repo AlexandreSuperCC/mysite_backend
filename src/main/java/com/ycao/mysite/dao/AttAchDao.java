@@ -11,7 +11,7 @@ public interface AttAchDao {
      * @param
      * @return
      */
-    int doUploadFile(AttAchDomain attAchDomain);
+    int doUploadAtt(AttAchDomain attAchDomain);
     /**
      * get all files uploaded
      * @param

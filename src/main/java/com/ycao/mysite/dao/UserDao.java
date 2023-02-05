@@ -1,9 +1,11 @@
 package com.ycao.mysite.dao;
 
+import com.ycao.mysite.model.LoginLogDomain;
 import com.ycao.mysite.model.UserDomain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,4 +29,6 @@ public interface UserDao {
     UserDomain getUserInfoById(@Param("uid") Integer uid);
 
     int insertLoginInfo(Map map);
+
+    List<LoginLogDomain> getLoginLog();
 }

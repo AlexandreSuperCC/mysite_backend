@@ -1,7 +1,5 @@
 package com.ycao.mysite.controller.admin;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.ycao.mysite.api.QiniuCloudService;
 import com.ycao.mysite.constant.ErrorConstant;
 import com.ycao.mysite.constant.OtherConstant;
@@ -17,6 +15,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +35,9 @@ public class AttAchController {
     private QiniuCloudService qiniuCloudService;
     @Autowired
     private IAttAchService attAchService;
+
+    @Value("${qiniu.cdn.url}")
+    public String QINIU_UPLOAD_SITE;
 
     @ResponseBody
     @PostMapping(value = "deleteOneFile")
@@ -88,11 +90,12 @@ public class AttAchController {
                                          //name should be the same as the request parameters
                                          String curUserId){
        try {
+           String fileName="";
            request.setCharacterEncoding("utf-8");
            response.setHeader("Content-Type","text/html");
            for(MultipartFile file:files) {
                String[] fileInfo = MyUtils.getFileKey(file.getOriginalFilename());
-               String fileName = fileInfo[0].replaceFirst("/","");
+               fileName = fileInfo[0].replaceFirst("/","");
                String fileExt = fileInfo[1]==null?"":fileInfo[1];
                qiniuCloudService.upload(file,fileName);//upload file on qiniuCloud
 
@@ -109,7 +112,7 @@ public class AttAchController {
                //do update attachment
                 attAchService.addAttach(attAch);
            }
-           return APIResponse.success();
+           return APIResponse.success(OtherConstant.httpOrHttps+this.QINIU_UPLOAD_SITE+fileName);
 
        }  catch (BusinessException e){
            return APIResponse.fail(ErrorConstant.Atth.UPLOAD_FILE_FAIL,e.getErrorCode());

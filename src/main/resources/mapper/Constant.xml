@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ycao.mysite.dao.ConstantDao" >
-    <sql id="BASE_TABLE">
+    <sql id="CONSTANT_BASE_TABLE">
         t_constant
     </sql>
-    <sql id="BASE_COLUMN">
+    <sql id="CONSTANT_BASE_COLUMN">
         code,name,content,domain
     </sql>
-    <sql id="using">
+    <sql id="CONSTANT_using">
         and ifnull(dr,0)=0
     </sql>
 
 <!--    返回map集合-->
-    <select id="getConstant" resultType="map">
+    <select id="getMyConstant" resultType="map">
         <trim suffix="" suffixOverrides=",">
-            select <include refid="BASE_COLUMN"/>
+            select <include refid="CONSTANT_BASE_COLUMN"/>
         </trim>
-        from <include refid="BASE_TABLE"/>
+        from <include refid="CONSTANT_BASE_TABLE"/>
         <where>
             and creator_id = #{userId}
-            and domain = #{domain, jdbcType=VARCHAR}
-            <include refid="using"/>
+            and UPPER(domain) = UPPER(#{domain, jdbcType=VARCHAR})
+            <include refid="CONSTANT_using"/>
         </where>
         ORDER BY ts DESC
     </select>
