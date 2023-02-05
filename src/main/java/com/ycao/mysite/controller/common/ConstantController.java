@@ -7,8 +7,6 @@ import com.ycao.mysite.utils.APIResponse;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;

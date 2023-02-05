@@ -23,8 +23,8 @@ public class MarkdownServiceImpl implements IMarkdownService {
 
     //@CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
     @Override
-    public void deleteOneFile(String mid) {
-        mdCatDao.deleteOneFile(mid);
+    public void deleteOneMarkdown(String mid) {
+        mdCatDao.deleteOneMarkdown(mid);
     }
 
     @Override

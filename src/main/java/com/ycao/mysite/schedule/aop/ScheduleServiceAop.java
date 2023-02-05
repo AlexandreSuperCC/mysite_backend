@@ -39,7 +39,7 @@ public class ScheduleServiceAop {
             put("cpn",pjp.getSignature().getDeclaringTypeName()+" - "+pjp.getSignature().getName());
             put("content","The result of execution is: "+String.valueOf(result)+"; It costs [" + (System.currentTimeMillis() - startTime.get())+"] ms");
         }};
-        autotaskDao.addLog(logMap);
+        autotaskDao.addALog(logMap);
 
         System.out.println("==================方法环绕end======================>");
         return result;

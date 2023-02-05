@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IDashboardService {
     List<LogDomain> getAllLogs();
+    List<String> getVisitLogs();
     List<LoginLogDomain> getLoginLogs();
 }

@@ -8,9 +8,9 @@ import java.util.Map;
 
 @Mapper
 public interface AutotaskDao {
-    int realDeleteAttach();
-    int realDeleteMarkdown();
-    int realDeleteCategory();
-    int addLog(Map map);
-    List<LogDomain> getAllLogs();
+    int realDeleteAtt();
+    int realDeleteMd();
+    int realDeleteCat();
+    int addALog(Map map);
+    List<LogDomain> getAllMyLogs();
 }

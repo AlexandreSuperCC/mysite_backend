@@ -29,7 +29,7 @@ public class AttAchServiceImpl implements IAttAchService {
     public void addAttach(AttAchDomain attAchDomain) {
         if(attAchDomain==null)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
-        int uploadRes = attAchDao.doUploadFile(attAchDomain);
+        int uploadRes = attAchDao.doUploadAtt(attAchDomain);
         LOGGER.error("Upload ["+uploadRes+"] file/files finished");
     }
 

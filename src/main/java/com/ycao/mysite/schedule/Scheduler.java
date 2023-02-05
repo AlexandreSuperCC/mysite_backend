@@ -16,9 +16,9 @@ public class Scheduler {
 
     @Scheduled(cron="0 0 0 1 * *") //auto-execute At 00:00 on day-of-month 1
     public String clearRemovedData(){
-        int delAttach = autotask.realDeleteAttach();
-        int delCat = autotask.realDeleteCategory();
-        int delMd = autotask.realDeleteMarkdown();
+        int delAttach = autotask.realDeleteAtt();
+        int delCat = autotask.realDeleteCat();
+        int delMd = autotask.realDeleteMd();
         return "["+delAttach+"] attaches deleted, ["+delCat+"] categories deleted, ["+delMd+"] Markdowns deleted";
     }
 

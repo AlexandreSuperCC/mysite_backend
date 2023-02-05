@@ -77,7 +77,7 @@ public class MarkdownController {
                                         @RequestParam(value = "mid",required = false)
                                                 String mid
     ){
-        iMarkdownService.deleteOneFile(mid);
+        iMarkdownService.deleteOneMarkdown(mid);
         return APIResponse.success();
     }
 

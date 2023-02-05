@@ -37,6 +37,19 @@ public class DashboardController {
         }
     }
 
+    @GetMapping(value = "/visitLogs")
+    @ResponseBody
+    public APIResponse getVisitLogs(){
+        try{
+            List<String> resList = iDashboardService.getVisitLogs();
+            return APIResponse.success(resList);
+        }catch (BusinessException businessException){
+            return APIResponse.fail(businessException.getErrorCode());
+        }catch (Exception e){
+            return APIResponse.fail(e.getMessage());
+        }
+    }
+
     @GetMapping(value = "/loginLogs")
     @ResponseBody
     public APIResponse getLoginLogs(){
