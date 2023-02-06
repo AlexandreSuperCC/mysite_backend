@@ -66,9 +66,8 @@ public class AuthController {
         String finalIp = realIp==""?ip:realIp;
 
         Integer error_count = cache.hget("login_error_count",finalIp);
-        error_count = null == error_count ? 1 : error_count + 1;
 
-        if (error_count > 3) {// debug proposal, should be restored
+        if (error_count!=null&&error_count > 3) {// debug proposal, should be restored
             String msg = "You entered the wrong password more than 3 times, please try again after 10 minutes";
             return APILoginResponse.failLogin(msg);
         }
@@ -99,6 +98,8 @@ public class AuthController {
             String msg = "login fails";
 
             if(e instanceof BusinessException){
+                error_count = null == error_count ? 1 : error_count + 1;
+
                 cache.hset("login_error_count", finalIp,error_count, 10 * 60); // add ip filter
 
                 String errMes = e.getMessage()!=null?e.getMessage():((BusinessException) e).getErrorCode();
