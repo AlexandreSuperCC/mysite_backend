@@ -25,4 +25,17 @@
         ORDER BY ts DESC
     </select>
 
+    <update id="updateConstant" parameterType="com.ycao.mysite.model.ConstantDomain">
+        UPDATE
+        <include refid="CONSTANT_BASE_TABLE"/>
+        <set>
+            ts = now(),
+            <if test="content != null">
+                content = #{content, jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE creator_id = #{creatorId, jdbcType=INTEGER}
+        <include refid="CONSTANT_using"/>
+    </update>
+
 </mapper>

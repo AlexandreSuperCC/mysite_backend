@@ -1,5 +1,6 @@
 package com.ycao.mysite.dao;
 
+import com.ycao.mysite.model.ConstantDomain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,4 +15,5 @@ public interface ConstantDao {
      * @return
      */
     public List<Map> getMyConstant(@Param("userId") String userId, @Param("domain") String domain);
+    void updateConstant(ConstantDomain constantDomain);
 }
