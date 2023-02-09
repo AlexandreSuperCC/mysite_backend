@@ -35,6 +35,7 @@
             </if>
         </set>
         WHERE creator_id = #{creatorId, jdbcType=INTEGER}
+        AND id = #{id, jdbcType=INTEGER}
         <include refid="CONSTANT_using"/>
     </update>
 
