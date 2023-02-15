@@ -9,6 +9,7 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
+import com.ycao.mysite.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +41,7 @@ public class QiniuCloudService {
 
         //构造一个带指定Zone对象的配置类
         //edited by ycao on 14/8/2021
-        Configuration cfg = new Configuration(Zone.beimei());
+        Configuration cfg = new Configuration(Zone.huabei());
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
         //默认不指定key的情况下，以文件内容的hash值作为文件名
@@ -60,11 +61,14 @@ public class QiniuCloudService {
         } catch (QiniuException ex) {
             Response r = ex.response;
             System.err.println(r.toString());
+            String strMsg="";
             try {
-                System.err.println(r.bodyString());
+                strMsg = r.bodyString();
             } catch (QiniuException ex2) {
                 //ignore
             }
+            System.err.println(strMsg);
+            throw BusinessException.withErrorCode(strMsg);
         } catch (IOException e) {
             e.printStackTrace();
         }

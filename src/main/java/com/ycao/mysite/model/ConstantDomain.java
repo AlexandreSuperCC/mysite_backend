@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel(description = "constant form")
 public class ConstantDomain {
+    private Integer id;
     private String code;
     private String name;
     private String creationTime;
