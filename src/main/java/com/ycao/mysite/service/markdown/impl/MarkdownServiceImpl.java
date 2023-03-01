@@ -1,6 +1,7 @@
 package com.ycao.mysite.service.markdown.impl;
 
 import com.ycao.mysite.constant.ErrorConstant;
+import com.ycao.mysite.constant.OtherConstant;
 import com.ycao.mysite.dao.MdCatDao;
 import com.ycao.mysite.exception.BusinessException;
 import com.ycao.mysite.model.MarkdownFileDomain;
@@ -30,6 +31,6 @@ public class MarkdownServiceImpl implements IMarkdownService {
     @Override
     //@CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
     public void deleteCategoryFiles(String cname,String userId) {
-        mdCatDao.deleteCategoryFiles(cname,Integer.parseInt(userId));
+        mdCatDao.deleteCategoryFiles(cname, OtherConstant.myId);
     }
 }

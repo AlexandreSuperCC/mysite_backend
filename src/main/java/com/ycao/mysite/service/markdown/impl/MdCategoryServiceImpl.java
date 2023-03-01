@@ -1,6 +1,7 @@
 package com.ycao.mysite.service.markdown.impl;
 
 import com.ycao.mysite.constant.ErrorConstant;
+import com.ycao.mysite.constant.OtherConstant;
 import com.ycao.mysite.controller.admin.AttAchController;
 import com.ycao.mysite.dao.MdCatDao;
 import com.ycao.mysite.exception.BusinessException;
@@ -153,14 +154,14 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         String userId = (String) map.get("userId");
         String fileCategory = (String) map.get("fileCategory");
-        mdCatDao.addMdCategory(new FileCategoryDomain(fileCategory,Integer.parseInt(userId)));
+        mdCatDao.addMdCategory(new FileCategoryDomain(fileCategory,OtherConstant.myId));
         LOGGER.info("Upload markdown finished");
     }
 
     public List<FileCategoryDomain> getAllCategory(String userId) throws BusinessException{
         if(userId==null)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
-        return mdCatDao.getAllCategory(Integer.parseInt(userId));
+        return mdCatDao.getAllCategory(OtherConstant.myId);
     }
 
     /**
