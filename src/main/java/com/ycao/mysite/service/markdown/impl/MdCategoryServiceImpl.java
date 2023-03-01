@@ -91,7 +91,7 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String content = (String) map.get("content");
         String htmlText = (String) map.get("htmlText");
         String nameCategory = (String) map.get("fileCategory");
-        String authorId = (String) map.get("userId");
+        String authorId = String.valueOf(OtherConstant.myId);
 
         Boolean ifNewCat = checkNewCat(map);
         if (ifNewCat) doCreateCat(map);//add action:create new category
@@ -121,7 +121,7 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
      */
     private void doSaveNewMarkdown(Map map) throws BusinessException{
         String mid = (String) map.get("uniqueMdFileId");
-        String authorId = (String) map.get("userId");
+        String authorId = String.valueOf(OtherConstant.myId);
         String content = (String) map.get("content");
         String rate = (String) map.get("fileStar");
         String mname = (String) map.get("fileName");
