@@ -32,8 +32,18 @@ CREATE TABLE `t_attach` (
                             `dr` varchar(2) DEFAULT '0',
                             `ts` varchar(50) DEFAULT NULL,
                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_attach`
+--
+
+LOCK TABLES `t_attach` WRITE;
+/*!40000 ALTER TABLE `t_attach` DISABLE KEYS */;
+INSERT INTO `t_attach` VALUES (111,'2023/03/22070627-shu.jpeg','jpeg','http://assets.cklovery.life/2023/03/22070627-shu.jpeg',1,'2023-03-01 22:07:07','0','2023-03-01 22:07:07');
+/*!40000 ALTER TABLE `t_attach` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_category`
@@ -53,6 +63,14 @@ CREATE TABLE `t_category` (
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `t_category`
+--
+
+LOCK TABLES `t_category` WRITE;
+/*!40000 ALTER TABLE `t_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_category` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -91,7 +109,7 @@ CREATE TABLE `t_constant` (
                               `dr` varchar(2) DEFAULT '0',
                               `domain` varchar(100) DEFAULT NULL,
                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=424 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,8 +118,10 @@ CREATE TABLE `t_constant` (
 
 LOCK TABLES `t_constant` WRITE;
 /*!40000 ALTER TABLE `t_constant` DISABLE KEYS */;
-INSERT INTO `t_constant` VALUES (1,'f258e34029d94adb8b0e9e79ec7896ac','signForAboutMe','2021-12-26 12:35:21',0,'A FULLSTACK DEVELOPER','2021-12-26 12:35:21','0','AboutMe');
-INSERT INTO `t_constant` VALUES (3,'f258','adminPages','2023-1-23 10:55:00',0,'[\'/home/markdown\',\'/home/dashboard\',\'/home/uploadFile\']','2023-1-23 10:56:00','0','App');
+INSERT INTO `t_constant` VALUES (1,'','signForAboutMe','2021-12-26 12:35:21',0,'A FULLSTACK DEVELOPER','2021-12-26 12:35:21','0','AboutMe');
+INSERT INTO `t_constant` VALUES (2,'20230305','myNotes','2023-03-05 13:47:36',0,'{\"event\":[{\"id\":4,\"type\":3,\"content\":\"ok\",\"time\":\"\"},{\"id\":3,\"type\":2,\"content\":\"gg\",\"time\":\"2023-3-5\"},{\"id\":1,\"type\":2,\"content\":\"test\",\"time\":\"2023-3-5\"},{\"id\":2,\"type\":1,\"content\":\"test2\",\"time\":\"\"}],\"count\":4}','2023-03-05 20:41:17','0','Notepad');
+INSERT INTO `t_constant` VALUES (3,'f258','adminPages','2023-1-23 10:55:00',0,'[\'/home/markdown\',\'/home/dashboard\',\'/home/uploadFile\',\'/home/notepad\']','2023-1-23 10:56:00','0','App');
+INSERT INTO `t_constant` VALUES (423,'19990423','myStatus','2023-2-9 18:25:00',0,'busy throwing and packing','2023-02-10 12:22:36','0','App');
 /*!40000 ALTER TABLE `t_constant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,6 +173,15 @@ CREATE TABLE `t_log` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `t_log`
+--
+
+LOCK TABLES `t_log` WRITE;
+/*!40000 ALTER TABLE `t_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `t_login_log`
 --
 
@@ -165,8 +194,17 @@ CREATE TABLE `t_login_log` (
                                `login_ip` varchar(64) DEFAULT NULL,
                                `login_time` varchar(64) DEFAULT NULL,
                                PRIMARY KEY (`lgid`)
-) ENGINE=InnoDB AUTO_INCREMENT=400 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=476 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_login_log`
+--
+
+LOCK TABLES `t_login_log` WRITE;
+/*!40000 ALTER TABLE `t_login_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_login_log` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_markdown`
@@ -186,11 +224,21 @@ CREATE TABLE `t_markdown` (
                               `rate` varchar(10) DEFAULT NULL,
                               `content` text,
                               `html_text` text,
+                              `pv` int DEFAULT '0',
                               PRIMARY KEY (`mid`),
                               KEY `pk_category` (`pk_category`),
                               CONSTRAINT `t_markdown_ibfk_1` FOREIGN KEY (`pk_category`) REFERENCES `t_category` (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2022110919 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2022110919 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='0 public 1 private';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_markdown`
+--
+
+LOCK TABLES `t_markdown` WRITE;
+/*!40000 ALTER TABLE `t_markdown` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_markdown` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `t_users`
@@ -211,6 +259,14 @@ CREATE TABLE `t_users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `t_users`
+--
+
+LOCK TABLES `t_users` WRITE;
+/*!40000 ALTER TABLE `t_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -221,4 +277,4 @@ CREATE TABLE `t_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-05 20:02:59
+-- Dump completed on 2023-03-07 23:29:54
