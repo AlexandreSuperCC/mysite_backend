@@ -32,7 +32,14 @@ public class IndexController {
     ){
         try {
 //            LOGGER.info("coming into "+request.getRequestURI());
-            List<MarkdownFileDomain> files = iMarkdownService.getAllMarkdown();
+            List<MarkdownFileDomain> files;
+            String objStr = request.getHeader("Authorization");
+            Boolean auth=objStr==null?false:true;
+            if(!auth){
+                files = iMarkdownService.getAllMarkdown();
+            }else{
+                files = iMarkdownService.getAllMarkdownAndPrivate();
+            }
             MarkdownFileDomain[] filesArray;
             if(files==null||files.isEmpty()){
                 filesArray = new MarkdownFileDomain[0];

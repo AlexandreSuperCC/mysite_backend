@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface IMarkdownService {
     public List<MarkdownFileDomain> getAllMarkdown();
+    public List<MarkdownFileDomain> getAllMarkdownAndPrivate();
     public void deleteOneMarkdown(String mid);
     public void deleteCategoryFiles(String cname,String userId);
 }

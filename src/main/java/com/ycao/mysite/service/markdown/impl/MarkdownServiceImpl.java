@@ -21,7 +21,10 @@ public class MarkdownServiceImpl implements IMarkdownService {
     public List<MarkdownFileDomain> getAllMarkdown() {
         return mdCatDao.getAllFilesWithCatName();
     }
-
+    @Override
+    public List<MarkdownFileDomain> getAllMarkdownAndPrivate() {
+        return mdCatDao.getAllFilesWithCatNameAndPrivate();
+    }
     //@CacheEvict(cacheNames = "markdownCaches",allEntries = true,beforeInvocation = true)
     @Override
     public void deleteOneMarkdown(String mid) {

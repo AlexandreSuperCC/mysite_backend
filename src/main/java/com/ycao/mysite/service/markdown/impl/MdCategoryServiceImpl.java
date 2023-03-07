@@ -92,13 +92,14 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String htmlText = (String) map.get("htmlText");
         String nameCategory = (String) map.get("fileCategory");
         String authorId = String.valueOf(OtherConstant.myId);
+        Integer pv = Integer.parseInt((String) map.get("pv"));
 
         Boolean ifNewCat = checkNewCat(map);
         if (ifNewCat) doCreateCat(map);//add action:create new category
 
         String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory,authorId);
 
-        mdCatDao.modifyMarkdown(new MarkdownFileDomain(mid,mname,rate,content,cidCategory,htmlText));
+        mdCatDao.modifyMarkdown(new MarkdownFileDomain(mid,mname,rate,content,cidCategory,htmlText,pv));
     }
 
     /**
@@ -127,10 +128,11 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String mname = (String) map.get("fileName");
         String nameCategory = (String) map.get("fileCategory");
         String htmlText = (String) map.get("htmlText");
+        String pv = (String) map.get("pv");
 
         String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory,authorId);
         try{
-            mdCatDao.addMarkdown(new MarkdownFileDomain(Integer.parseInt(mid),mname,Integer.parseInt(authorId),rate,content,cidCategory,htmlText));
+            mdCatDao.addMarkdown(new MarkdownFileDomain(Integer.parseInt(mid),mname,Integer.parseInt(authorId),rate,content,cidCategory,htmlText,Integer.parseInt(pv)));
         }catch (Exception e){
             throw BusinessException.withErrorCode(e.getMessage().substring(0,500));
         }

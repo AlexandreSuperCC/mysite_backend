@@ -70,7 +70,6 @@ public class BaseInterceptor implements HandlerInterceptor {
 //        String token = request.getHeader("token");
         String objStr = request.getHeader("Authorization");
         if(objStr==null){
-            System.out.println("let me see see");
             response.sendError(HttpStatus.NO_TOKEN);
             return false;
         }

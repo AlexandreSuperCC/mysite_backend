@@ -58,7 +58,7 @@ public class MarkdownController {
     public APIResponse saveMarkdownRT(HttpServletRequest request, HttpServletResponse response,
                                         @RequestBody String params){
         try {
-            Map map = MyUtils.getMapFromAPI(params,"htmlText","ifCreate","uniqueMdFileId","userId","content","fileStar","fileName","fileCategory");
+            Map map = MyUtils.getMapFromAPI(params,"htmlText","ifCreate","uniqueMdFileId","userId","content","fileStar","fileName","fileCategory","pv");
             String doRes = iMdCategoryService.doMarkdownService(map);
             if(doRes==null||"".equals(doRes)||"fail".equals(doRes)){
                 return APIResponse.fail("Save Markdown file fails");

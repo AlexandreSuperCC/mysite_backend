@@ -27,8 +27,9 @@ public class MarkdownFileDomain implements Serializable {
     private String ts;
     private String dr;
     private String pkCategory;
+    private Integer pv;
 
-    public MarkdownFileDomain(Integer mid,String mname, Integer authorId, String rate, String content, String pk_category,String htmlText) {
+    public MarkdownFileDomain(Integer mid,String mname, Integer authorId, String rate, String content, String pk_category,String htmlText,Integer pv) {
         this.mid = mid;
         this.mname = mname;
         this.authorId = authorId;
@@ -36,14 +37,16 @@ public class MarkdownFileDomain implements Serializable {
         this.content = content;
         this.pkCategory = pk_category;
         this.htmlText = htmlText;
+        this.pv = pv;
     }
 
-    public MarkdownFileDomain(Integer mid, String mname, String rate, String content, String pk_category,String htmlText) {
+    public MarkdownFileDomain(Integer mid, String mname, String rate, String content, String pk_category,String htmlText,Integer pv) {
         this.mid = mid;
         this.mname = mname;
         this.rate = rate;
         this.content = content;
         this.pkCategory = pk_category;
         this.htmlText = htmlText;
+        this.pv = pv;
     }
 }
