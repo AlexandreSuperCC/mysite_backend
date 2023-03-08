@@ -11,10 +11,10 @@
         cname,creation_time,author_id,ts
     </sql>
     <sql id="BASE_COLUMN_MD">
-        mid,mname,creation_time,author_id,ts,pk_category,rate,content,html_text
+        mid,mname,creation_time,author_id,ts,pk_category,rate,content,html_text,pv
     </sql>
     <sql id="COLUMN_MD_WITH_CAT_NAME">
-        a.mid,a.mname,a.creation_time,a.author_id,a.ts,a.rate,a.content,a.html_text
+        a.mid,a.mname,a.creation_time,a.author_id,a.ts,a.rate,a.content,a.html_text,a.pv
     </sql>
     <sql id="MD_using">
         and ifnull(dr,0)=0
@@ -45,7 +45,7 @@
     </select>
     <update id="addMarkdown" parameterType="com.ycao.mysite.model.MarkdownFileDomain">
         insert into <include refid="BASE_TABLE_MD"/>(<include refid="BASE_COLUMN_MD"/>)
-        values(#{mid},#{mname},now(),#{authorId},now(),#{pkCategory},#{rate},#{content},#{htmlText})
+        values(#{mid},#{mname},now(),#{authorId},now(),#{pkCategory},#{rate},#{content},#{htmlText},#{pv})
     </update>
 
     <select id="verifyMarkdown" resultType="com.ycao.mysite.model.MarkdownFileDomain">
@@ -73,12 +73,24 @@
             <if test="htmlText != null">
                 html_text = #{htmlText, jdbcType=LONGVARCHAR},
             </if>
+            <if test="pv != null">
+                pv = #{pv, jdbcType=INTEGER},
+            </if>
         </set>
         WHERE mid = #{mid, jdbcType=INTEGER}
         <include refid="MD_using"/>
     </update>
 
     <select id="getAllFilesWithCatName" resultType="com.ycao.mysite.model.MarkdownFileDomain">
+        select <include refid="COLUMN_MD_WITH_CAT_NAME"/>,b.cname pk_category
+        from <include refid="BASE_TABLE_MD"/> a inner join <include refid="BASE_TABLE_CAT"/> b
+            on a.pk_category = b.cid
+        <where>
+            ifnull(a.dr,0)=0 and a.pv=0
+        </where>
+        order by a.ts desc
+    </select>
+    <select id="getAllFilesWithCatNameAndPrivate" resultType="com.ycao.mysite.model.MarkdownFileDomain">
         select <include refid="COLUMN_MD_WITH_CAT_NAME"/>,b.cname pk_category
         from <include refid="BASE_TABLE_MD"/> a inner join <include refid="BASE_TABLE_CAT"/> b
             on a.pk_category = b.cid

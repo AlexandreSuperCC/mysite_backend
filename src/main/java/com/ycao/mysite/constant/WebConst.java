@@ -19,5 +19,5 @@ public class WebConst {
      * @param
      * @return
      */
-    public static String AES_SALT = "qwer1234";
+    public static String AES_SALT = "qwertyui12345678";
 }

@@ -1,6 +1,7 @@
 package com.ycao.mysite.service.markdown.impl;
 
 import com.ycao.mysite.constant.ErrorConstant;
+import com.ycao.mysite.constant.OtherConstant;
 import com.ycao.mysite.controller.admin.AttAchController;
 import com.ycao.mysite.dao.MdCatDao;
 import com.ycao.mysite.exception.BusinessException;
@@ -90,14 +91,15 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
         String content = (String) map.get("content");
         String htmlText = (String) map.get("htmlText");
         String nameCategory = (String) map.get("fileCategory");
-        String authorId = (String) map.get("userId");
+        String authorId = String.valueOf(OtherConstant.myId);
+        Integer pv = Integer.parseInt((String) map.get("pv"));
 
         Boolean ifNewCat = checkNewCat(map);
         if (ifNewCat) doCreateCat(map);//add action:create new category
 
         String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory,authorId);
 
-        mdCatDao.modifyMarkdown(new MarkdownFileDomain(mid,mname,rate,content,cidCategory,htmlText));
+        mdCatDao.modifyMarkdown(new MarkdownFileDomain(mid,mname,rate,content,cidCategory,htmlText,pv));
     }
 
     /**
@@ -120,16 +122,17 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
      */
     private void doSaveNewMarkdown(Map map) throws BusinessException{
         String mid = (String) map.get("uniqueMdFileId");
-        String authorId = (String) map.get("userId");
+        String authorId = String.valueOf(OtherConstant.myId);
         String content = (String) map.get("content");
         String rate = (String) map.get("fileStar");
         String mname = (String) map.get("fileName");
         String nameCategory = (String) map.get("fileCategory");
         String htmlText = (String) map.get("htmlText");
+        String pv = (String) map.get("pv");
 
         String cidCategory = mdCatDao.getMdCatIdFromName(nameCategory,authorId);
         try{
-            mdCatDao.addMarkdown(new MarkdownFileDomain(Integer.parseInt(mid),mname,Integer.parseInt(authorId),rate,content,cidCategory,htmlText));
+            mdCatDao.addMarkdown(new MarkdownFileDomain(Integer.parseInt(mid),mname,Integer.parseInt(authorId),rate,content,cidCategory,htmlText,Integer.parseInt(pv)));
         }catch (Exception e){
             throw BusinessException.withErrorCode(e.getMessage().substring(0,500));
         }
@@ -153,14 +156,14 @@ public class MdCategoryServiceImpl implements IMdCategoryService {
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
         String userId = (String) map.get("userId");
         String fileCategory = (String) map.get("fileCategory");
-        mdCatDao.addMdCategory(new FileCategoryDomain(fileCategory,Integer.parseInt(userId)));
+        mdCatDao.addMdCategory(new FileCategoryDomain(fileCategory,OtherConstant.myId));
         LOGGER.info("Upload markdown finished");
     }
 
     public List<FileCategoryDomain> getAllCategory(String userId) throws BusinessException{
         if(userId==null)
             throw BusinessException.withErrorCode(ErrorConstant.Common.PARAM_IS_EMPTY);
-        return mdCatDao.getAllCategory(Integer.parseInt(userId));
+        return mdCatDao.getAllCategory(OtherConstant.myId);
     }
 
     /**

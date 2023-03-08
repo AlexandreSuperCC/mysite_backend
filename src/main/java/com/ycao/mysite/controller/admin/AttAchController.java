@@ -62,17 +62,9 @@ public class AttAchController {
 
     @PostMapping(value = "getUploadFiles")
     @ResponseBody
-    public APIResponse getAllUploadFile(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        @RequestBody
-                                        String params){
+    public APIResponse getAllUploadFile(){
         try {
-            Map map = MyUtils.getMapFromAPI(params,"userid");
-            String curUserId = (String) map.get("userid");
-            if(curUserId==null||"".equals(curUserId)){
-                throw BusinessException.withErrorCode(ErrorConstant.Auth.NO_USER_ID);
-            }
-            AttAchDomain[] attResults = attAchService.getAttach(curUserId);
+            AttAchDomain[] attResults = attAchService.getAttach(String.valueOf(OtherConstant.myId));
             return APIResponse.success(attResults);
         } catch (BusinessException e){
         return APIResponse.fail(ErrorConstant.Atth.GET_ALL_ATT_UPLOADED_FAIL,e.getErrorCode());
@@ -105,10 +97,7 @@ public class AttAchController {
                attAch.setFtype("".equals(fileExt)?
                        MyUtils.isImage(file.getInputStream())? Types.IMAGES.getType() : Types.FILE.getType()
                                                  :fileExt);
-               if(curUserId==null||"".equals(curUserId)){
-                    throw BusinessException.withErrorCode(ErrorConstant.Auth.NO_USER_ID);
-               }
-               attAch.setAuthorid(Integer.valueOf(curUserId) );
+               attAch.setAuthorid(OtherConstant.myId);
                //do update attachment
                 attAchService.addAttach(attAch);
            }
