@@ -14,7 +14,7 @@
         mid,mname,creation_time,author_id,ts,pk_category,rate,content,html_text,pv
     </sql>
     <sql id="COLUMN_MD_WITH_CAT_NAME">
-        a.mid,a.mname,a.creation_time,a.author_id,a.ts,a.rate,a.content,a.html_text
+        a.mid,a.mname,a.creation_time,a.author_id,a.ts,a.rate,a.content,a.html_text,a.pv
     </sql>
     <sql id="MD_using">
         and ifnull(dr,0)=0
