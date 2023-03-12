@@ -4,9 +4,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ycao.mysite.constant.ErrorConstant;
 import com.ycao.mysite.constant.WebConst;
-import com.ycao.mysite.controller.admin.AttAchController;
 import com.ycao.mysite.exception.BusinessException;
 import com.ycao.mysite.model.UserDomain;
+import com.ycao.mysite.utils.security.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
-import java.io.File;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -190,5 +189,25 @@ public class MyUtils {
             resMap.put(requireAttribute,jsonObject.get(requireAttribute).getAsString());
         }
         return resMap;
+    }
+
+    /**
+     * @DESC 0 pass -1 no token -2 wrong token
+     * @return
+     * @date 2023-03-12 11:41:11
+     * @author yuan.cao@utbm.fr
+     **/
+    public static Integer checkTokenFromRequest(HttpServletRequest request){
+        String objStr = request.getHeader("Authorization");
+        if(objStr==null){
+            return -2;
+        }
+        String token = Tools.getTokenStr(objStr);
+
+        if(null==token||"".equals(token.trim())){
+            return -2;
+        }
+
+        return JwtUtil.verify(token)?0:-1;
     }
 }
