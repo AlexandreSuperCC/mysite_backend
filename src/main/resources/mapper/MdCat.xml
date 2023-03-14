@@ -99,6 +99,16 @@
         </where>
         order by a.ts desc
     </select>
+    <select id="getOneFileWithCatNameAndPrivate" resultType="com.ycao.mysite.model.MarkdownFileDomain">
+        select <include refid="COLUMN_MD_WITH_CAT_NAME"/>,b.cname pk_category
+        from <include refid="BASE_TABLE_MD"/> a inner join <include refid="BASE_TABLE_CAT"/> b
+        on a.pk_category = b.cid
+        <where>
+            and ifnull(a.dr,0)=0
+            and a.mid = #{mid}
+        </where>
+        order by a.ts desc
+    </select>
 
     <update id="deleteOneMarkdown">
         update

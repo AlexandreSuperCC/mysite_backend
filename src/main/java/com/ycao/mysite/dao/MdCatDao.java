@@ -18,6 +18,7 @@ public interface MdCatDao {
      */
     public List<MarkdownFileDomain> getAllFilesWithCatName();
     public List<MarkdownFileDomain> getAllFilesWithCatNameAndPrivate();
+    MarkdownFileDomain getOneFileWithCatNameAndPrivate(@Param("mid") String mid);
     /**
      * getting all category
      * @param
