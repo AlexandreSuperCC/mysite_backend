@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -82,5 +83,31 @@ public class DashboardController {
         }catch (Exception e){
             return APIResponse.fail(e.getMessage());
         }
+    }
+    @ResponseBody
+    @PostMapping(value = "/updatePwd")
+    public APIResponse updatePwd(
+            HttpServletRequest request,
+            @RequestParam(value = "id",required = true) Integer id,
+            @RequestParam(value = "name",required = true) String name,
+            @RequestParam(value = "oldPassword",required = true) String oldPassword,
+            @RequestParam(value = "newPassword",required = true) String newPassword
+    ){
+        try {
+            assert id!=null;
+            iDashboardService.updateUserPwd(id,name,oldPassword,newPassword);
+        }catch (Exception e){
+            String msg;
+            if(e instanceof BusinessException){
+                String errMes = e.getMessage()!=null?e.getMessage():((BusinessException) e).getErrorCode();
+                return APIResponse.fail(errMes);
+            }else{
+                msg = e.getMessage().length()>500
+                        ?e.getMessage().substring(0,500)
+                        :e.getMessage();
+                return APIResponse.fail(msg);
+            }
+        }
+        return APIResponse.success();
     }
 }

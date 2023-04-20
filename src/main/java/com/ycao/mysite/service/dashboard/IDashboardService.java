@@ -9,4 +9,5 @@ public interface IDashboardService {
     List<LogDomain> getAllLogs();
     List<String> getVisitLogs();
     List<LoginLogDomain> getLoginLogs();
+    void updateUserPwd(Integer id, String name,String oldPassword, String newPassword);
 }
