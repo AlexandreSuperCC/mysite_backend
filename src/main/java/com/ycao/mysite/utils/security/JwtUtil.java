@@ -4,8 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -14,27 +13,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@ConfigurationProperties(prefix = "jwt.token")
-@PropertySource(value = {"classpath:jwt.properties"})
 public class JwtUtil {
-    private static String privateKey;
-    private static String limitTime; // 过期时间 毫秒
 
-    public String getPrivateKey() {
-        return privateKey;
-    }
+    @Value("${jwt.token.private-key}")
+    private String privateKey;
+    @Value("${jwt.token.limit-time}")
+    private String limitTime; // 过期时间 毫秒
 
+    @Value("${jwt.token.private-key}")
     public void setPrivateKey(String privateKey) {
-        JwtUtil.privateKey = privateKey;
+        JwtUtil.privateKeyStatic = privateKey;
     }
 
-    public String getLimitTime() {
-        return limitTime;
-    }
-
+    @Value("${jwt.token.limit-time}")
     public void setLimitTime(String limitTime) {
-        JwtUtil.limitTime = limitTime;
+        JwtUtil.limitTimeStatic = limitTime;
     }
+
+    private static String privateKeyStatic;
+    private static String limitTimeStatic;
 
     /**
      * 生成签名
@@ -45,8 +42,8 @@ public class JwtUtil {
     public static String sign(String username, String userId){
         try {
             //expired time
-            Date date = new Date(System.currentTimeMillis()+Long.parseLong(limitTime));
-            Algorithm algorithm = Algorithm.HMAC256(privateKey);
+            Date date = new Date(System.currentTimeMillis()+Long.parseLong(limitTimeStatic));
+            Algorithm algorithm = Algorithm.HMAC256(privateKeyStatic);
             //set header info
             Map<String,Object> header = new HashMap<>(2);
             header.put("typ","JWT");
@@ -71,7 +68,7 @@ public class JwtUtil {
      */
     public static boolean verify(String token){
         try {
-            Algorithm algorithm = Algorithm.HMAC256(privateKey);
+            Algorithm algorithm = Algorithm.HMAC256(privateKeyStatic);
             JWTVerifier verifier = JWT.require(algorithm)
                     .build();
             DecodedJWT jwt = verifier.verify(token);

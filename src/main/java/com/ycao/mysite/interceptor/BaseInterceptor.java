@@ -2,10 +2,7 @@ package com.ycao.mysite.interceptor;
 
 import com.ycao.mysite.constant.HttpStatus;
 import com.ycao.mysite.service.user.UserService;
-import com.ycao.mysite.utils.DateKit;
-import com.ycao.mysite.utils.IPKit;
-import com.ycao.mysite.utils.MapCache;
-import com.ycao.mysite.utils.Tools;
+import com.ycao.mysite.utils.*;
 import com.ycao.mysite.utils.security.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,25 +65,20 @@ public class BaseInterceptor implements HandlerInterceptor {
 
         // is null => return un error
 //        String token = request.getHeader("token");
-        String objStr = request.getHeader("Authorization");
-        if(objStr==null){
-            response.sendError(HttpStatus.NO_TOKEN);
-            return false;
-        }
-        String token = Tools.getTokenStr(objStr);
 
-        if(null==token||"".equals(token.trim())){
-            response.sendError(HttpStatus.NO_TOKEN);
-            return false;
+        Integer res = MyUtils.checkTokenFromRequest(request);
+        switch (res){
+            case 0:
+                return true;
+            case -2:
+                response.sendError(HttpStatus.NO_TOKEN);
+                return false;
+            case -1:
+                response.sendError(HttpStatus.JWT_UNAUTHORIZED);
+                return false;
+            default:
+                break;
         }
-
-//        LOGGER.info("Here is your token: "+token+", and now we do the verification...");
-        Boolean result = JwtUtil.verify(token);
-        if(result){
-            return true;
-        }else{
-            response.sendError(HttpStatus.JWT_UNAUTHORIZED);
-            return false;
-        }
+        return false;
     }
 }

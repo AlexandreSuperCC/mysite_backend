@@ -4,6 +4,7 @@ import com.ycao.mysite.model.LoginLogDomain;
 import com.ycao.mysite.model.UserDomain;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -31,4 +32,18 @@ public interface UserDao {
     int insertLoginInfo(Map map);
 
     List<LoginLogDomain> getLoginLog();
+
+    /**
+     * @DESC before update user password, verify
+     * @param
+     * @return
+     * @data 17/05/2022 13:41
+     * @author yuan.cao@utbm.fr
+     **/
+    UserDomain verifyBeforeUpdatePwd(@Param("id") Integer id,
+                                     @Param("password") String password);
+
+    void updateUserPwd(@Param("id") Integer id,
+                       @Param("password") String password
+    );
 }

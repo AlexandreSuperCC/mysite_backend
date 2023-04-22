@@ -39,4 +39,17 @@
         from t_login_log
         ORDER BY login_time DESC;
     </select>
+    <select id="verifyBeforeUpdatePwd" resultType="com.ycao.mysite.model.UserDomain">
+        select *
+        from
+        <include refid="USER_BASE_TABLE"/> u
+        where u.uid = #{id, jdbcType=INTEGER}
+          and u.password = #{password,jdbcType=VARCHAR}
+    </select>
+    <update id="updateUserPwd">
+        update
+        <include refid="USER_BASE_TABLE"/> u
+        set u.password = #{password, jdbcType=VARCHAR}
+            where u.uid = #{id, jdbcType=INTEGER}
+    </update>
 </mapper>

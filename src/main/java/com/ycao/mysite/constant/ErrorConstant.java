@@ -12,6 +12,7 @@ public interface ErrorConstant {
         static final String USERNAME_PASSWORD_IS_EMPTY = "name and password must not be empty";
         static final String USERNAME_PASSWORD_ERROR = "username doesn't exist or password is incorrect";
         static final String NO_USER_ID = "no user's id error";
+        static final String OLD_PASSWORD_ERROR = "old password is incorrect";
     }
     interface Atth {
         static final String ADD_NEW_ATT_FAIL = "adding attachment fails";

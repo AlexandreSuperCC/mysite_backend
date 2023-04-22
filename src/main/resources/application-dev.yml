@@ -54,14 +54,15 @@ logging:
 swagger:
   show: true
 
-jwt:
-  salt: 19990423
-  limitTime: 30
-
 qiniu:
-  accesskey: "VZ7XtecWHInG8YRg22gLSuhbWC-o9OzXtUVuMDhz"
-  serectkey: "fOtqr0wmKGhQrbCKBFZCkgUIZGj8otHbxorPqdDr"
+  accesskey: ""
+  serectkey: ""
   bucket: "north-us-ycao"
   cdn:
     url: "www.cklovery.site/"
 
+jwt:
+  token:
+    # 24*60*60*1000
+    limit-time: 86400000
+    private-key:

@@ -21,7 +21,7 @@ spring:
 #      url: jdbc:mysql://139.224.199.41:3306/ycao_site?useSSL=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       #密码一定要加单引号！！！！！！！！！
-      password: '0423'
+      password: ''
 #      password: ''
       #配置初始化大小/最小/最大
       initial-size: 1
@@ -58,13 +58,15 @@ mybatis:
 swagger:
   show: false
 
-jwt:
-  salt: 19990423
-  limitTime: 30
-
 qiniu:
   accesskey: ""
   serectkey: ""
-  bucket: "north-us-ycao"
+  bucket: "ycaoassets"
   cdn:
-    url: "www.cklovery.site/"
+    url: "assets.cklovery.life/"
+
+jwt:
+  token:
+    # 24*60*60*1000
+    limit-time: 86400000
+    private-key:

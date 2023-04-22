@@ -92,4 +92,19 @@ public class MarkdownController {
         iMarkdownService.deleteCategoryFiles(cname,userId);
         return APIResponse.success();
     }
+
+    @ResponseBody
+    @GetMapping(value = "getOneFile")
+    public APIResponse getOneFile(HttpServletRequest request,
+                                  @RequestParam(value = "mid",required = false)
+                                          String mid
+    ){
+        try {
+            return APIResponse.success(iMarkdownService.getOneMarkdown(mid));
+        }catch (BusinessException businessException){
+            return APIResponse.fail(businessException.getErrorCode());
+        }catch (Exception e){
+            return APIResponse.fail(e.getMessage());
+        }
+    }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public interface IMarkdownService {
     public List<MarkdownFileDomain> getAllMarkdown();
     public List<MarkdownFileDomain> getAllMarkdownAndPrivate();
+    MarkdownFileDomain getOneMarkdown(String mid);
     public void deleteOneMarkdown(String mid);
     public void deleteCategoryFiles(String cname,String userId);
 }

@@ -5,6 +5,7 @@ import com.ycao.mysite.exception.BusinessException;
 import com.ycao.mysite.model.MarkdownFileDomain;
 import com.ycao.mysite.service.markdown.IMarkdownService;
 import com.ycao.mysite.utils.APIResponse;
+import com.ycao.mysite.utils.MyUtils;
 import io.swagger.annotations.Api;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -33,13 +34,13 @@ public class IndexController {
         try {
 //            LOGGER.info("coming into "+request.getRequestURI());
             List<MarkdownFileDomain> files;
-            String objStr = request.getHeader("Authorization");
-            Boolean auth=objStr==null?false:true;
-            if(!auth){
+
+            if(MyUtils.checkTokenFromRequest(request)!=0){
                 files = iMarkdownService.getAllMarkdown();
             }else{
                 files = iMarkdownService.getAllMarkdownAndPrivate();
             }
+
             MarkdownFileDomain[] filesArray;
             if(files==null||files.isEmpty()){
                 filesArray = new MarkdownFileDomain[0];
