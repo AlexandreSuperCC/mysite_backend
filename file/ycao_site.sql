@@ -265,6 +265,7 @@ CREATE TABLE `t_users` (
 
 LOCK TABLES `t_users` WRITE;
 /*!40000 ALTER TABLE `t_users` DISABLE KEYS */;
+INSERT INTO `t_users` VALUES (1, 'admin', 'a66abb5684c45962d887564f08346e8d', 'yuancaocc@gmail.com', 0);
 /*!40000 ALTER TABLE `t_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
